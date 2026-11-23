@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How Lampas Works — ROMA, the Fence, and Governance</title>
+<meta name="description" content="How the Lampas recursive engine works: the ROMA pattern, the Fence check on every spawn, depth and budget governance, and the staging vs production boundary.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700&family=Inter:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/site.css">
+</head>
+<body>
+<div class="ticker">Full Beta Release 2/1/2027</div>
+<header class="site-header">
+  <a class="brand" href="/"><img src="/logo-lockup.png" alt="Prometheon SI"></a>
+  <nav class="site-nav">
+    <a href="/">Home</a>
+    <a href="/how-it-works.html">How It Works</a>
+    <a href="https://prometheon.si">Prometheon SI</a>
+    <a href="https://pyr.network">Ignis</a>
+    <a class="cta" href="/console.html">Open Console</a>
+  </nav>
+</header>
+<main>
+  <h1>How Lampas works</h1>
+  <p class="lede">Lampas runs recursive agent work in four parts: a task arrives, an
+  agent plans and decomposes it, child agents are spawned through the Fence where the
+  work needs them, and results roll back up the tree. Governance is not a layer added
+  afterwards — the Fence sits on the only path a spawn can take.</p>
+
+  <section>
+    <h2>The ROMA pattern</h2>
+    <p>Lampas follows the ROMA pattern (Recursive Open Meta-Agent): a meta-agent receives
+    a goal, breaks it into sub-tasks, and dispatches each sub-task to an agent — which
+    may itself act as a meta-agent for its own sub-tasks. Decomposition is recursive, so
+    the shape of the work decides the shape of the tree, rather than a fixed pipeline
+    decided in advance. Results are aggregated back up each level, so the originating run
+    receives one coherent output from the whole tree.</p>
+  </section>
+
+  <section>
+    <h2>The Fence check</h2>
+    <p>Every spawn — every child or grandchild agent, at any depth — clears one check at
+    the Fence before it exists. The Fence answers <strong>GRANTED</strong> or
+    <strong>DENIED</strong>:</p>
+    <div class="grid">
+      <div class="card">
+        <h3>GRANTED</h3>
+        <p>The spawn is registered as a child run of its parent, with its own depth and
+        budget position in the tree, and begins work. The registration is what makes the
+        run traceable.</p>
+      </div>
+      <div class="card">
+        <h3>DENIED</h3>
+        <p>The spawn does not run. The requesting agent is told the spawn was denied and
+        must finish with the agents it already has, split the work differently, or hand
+        back. There is no retry path around the gate.</p>
+      </div>
+    </div>
+    <p>The same registration discipline applies on the
+    <a href="https://prometheon.si">Prometheon SI</a> platform: creating a sub-chat in the
+    unified app registers a child run with the Fence, carrying the parent run and
+    conversation ids.</p>
+  </section>
+
+  <section>
+    <h2>Depth &amp; budget governance</h2>
+    <p>Two limits travel with every run:</p>
+    <ul>
+      <li><strong>Depth</strong> — how many generations below the originating run a spawn
+      may sit. The pilot's dedicated Fence bounded its generational demo at depth 3.</li>
+      <li><strong>Budget</strong> — the spend and token envelope for the run and its
+      descendants. Spawns that would exceed the remaining budget are denied.</li>
+    </ul>
+    <p>Lifecycle rules apply as well: only records in an Approved state are eligible to
+    serve, and disabled records are enforced at routing and at the Fence — a rule the
+    pilot demonstrated live with a Candidate → Approved → Disabled pass.</p>
+  </section>
+
+  <section>
+    <h2>Staging vs. production, plainly</h2>
+    <div class="notice">
+      <p>The demonstrated result is a staging one: <strong>17 agents to depth 3</strong>
+      under a dedicated Fence, with the Fence granting and bounding every spawn in the
+      tree. Generational autonomy beyond those staging limits stays inside its existing
+      governance, and this site does not present the staging result as production
+      generational autonomy. Runs started from the console here are bounded Lampas runs
+      through the live Prometheon SI gateway — the same backend, accounts, and Fence as
+      <a href="https://prometheon.si">prometheon.si</a>.</p>
+    </div>
+    <p><a class="btn" href="/console.html">Open the Lampas Console</a></p>
+  </section>
+</main>
+<footer class="site-footer">
+  <p class="tagline">Powering human achievement.</p>
+  <nav>
+    <a href="https://prometheon.si">Prometheon SI</a>
+    <a href="https://pyr.network">Ignis</a>
+    <a href="/console.html">Console</a>
+    <a href="/how-it-works.html">How It Works</a>
+  </nav>
+  <p class="version">v1.00</p>
+  <p class="copyright">Artificial Intelligence Designed Exclusively by the American Business Capital Group, Inc. © 2026 All Rights Reserved</p>
+</footer>
+</body>
+</html>
